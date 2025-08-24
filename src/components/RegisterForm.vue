@@ -1,0 +1,83 @@
+<script setup lang="ts">
+    import { ref } from "vue";
+
+    const name = ref("");
+    const email = ref("");
+    const password = ref("");
+
+    function handleSubmit() {
+        // Here you could emit an event or call an API
+        console.log("Registering:", {
+            name: name.value,
+            email: email.value,
+            password: password.value
+        });
+        alert(`Registered user ${name.value}`);
+        // reset form
+        name.value = "";
+        email.value = "";
+        password.value = "";
+    }
+</script>
+
+<template>
+    <form @submit.prevent="handleSubmit" class="register-form">
+        <h2>Register</h2>
+        <div class="form-field">
+            <label for="name">Name</label>
+            <input id="name" v-model="name" type="text" required />
+        </div>
+
+        <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" v-model="email" type="email" required />
+        </div>
+
+        <div class="form-field">
+            <label for="password">Password</label>
+            <input id="password" v-model="password" type="password" required />
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+</template>
+
+<style scoped>
+    .register-form {
+        max-width: 400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+    }
+
+    input {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 0.75rem;
+        border: none;
+        background-color: #42b883;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    button:hover {
+        background-color: #369d6b;
+    }
+</style>
