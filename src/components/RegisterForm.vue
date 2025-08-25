@@ -1,19 +1,19 @@
 <script setup lang="ts">
     import { ref } from "vue";
+    import { AuthService } from "../services";
 
     const name = ref("");
     const email = ref("");
     const password = ref("");
 
-    function handleSubmit() {
-        // Here you could emit an event or call an API
-        console.log("Registering:", {
-            name: name.value,
-            email: email.value,
-            password: password.value
-        });
-        alert(`Registered user ${name.value}`);
-        // reset form
+    async function handleSubmit() {
+        try {
+            const response = await AuthService.register(name.value, email.value, password.value);
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+
         name.value = "";
         email.value = "";
         password.value = "";
