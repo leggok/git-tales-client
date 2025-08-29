@@ -8,7 +8,9 @@
         <RouterLink to="/register">Register</RouterLink>
     </nav>
 
-    <router-view />
+    <div class="container">
+        <router-view />
+    </div>
 </template>
 
 <style scoped>
@@ -23,5 +25,19 @@
     }
     .logo.vue:hover {
         filter: drop-shadow(0 0 2em #42b883aa);
+    }
+
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f0f0f0;
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .container {
+        margin-top: 44px;
     }
 </style>

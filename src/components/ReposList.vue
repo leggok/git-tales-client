@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1>Repositories</h1>
+    <div class="repos-container">
+        <div class="title">Repositories</div>
         <ul class="repo-grid">
             <li
                 v-for="repo in repos"
@@ -35,42 +35,60 @@
 </script>
 
 <style scoped>
-    /* Grid layout for repositories */
+    .repos-container {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 76px); /* fill viewport for aside */
+        overflow-y: auto;
+        background-color: #f3f4f6; /* gray-100 */
+        border-right: 1px solid #e5e7eb;
+        padding: 1rem 0.5rem;
+    }
+
+    .title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-left: 0.5rem;
+        color: #374151; /* gray-700 */
+    }
+
+    /* List layout */
     .repo-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 1rem;
         list-style: none;
         padding: 0;
-        margin: 1.5rem 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     /* Card styling */
     .repo-card {
         background: #ffffff;
-        border: 1px solid #e5e7eb; /* Tailwind gray-200 */
-        border-radius: 8px;
-        padding: 1rem;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        transition: transform 150ms ease, box-shadow 150ms ease;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        transition: background-color 120ms ease, border-color 120ms ease;
     }
 
     .repo-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        background-color: #f9fafb;
+        border-color: #d1d5db;
     }
 
     /* Link styling */
     .repo-link {
         display: block;
         width: 100%;
-        font-weight: 600;
-        color: #1d4ed8; /* blue-700 */
+        font-weight: 500;
+        color: #111827; /* gray-900 */
         text-decoration: none;
         word-break: break-word;
     }
 
     .repo-link:hover {
-        text-decoration: underline;
+        text-decoration: none;
     }
 </style>

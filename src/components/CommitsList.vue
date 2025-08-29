@@ -1,18 +1,30 @@
 <template>
-    <div>
-        <h1>Commits</h1>
+    <div class="commits-container">
+        <h2 class="heading">Commits</h2>
         <ul class="commit-list">
             <li v-for="commit in commits" :key="commit.id" class="commit-item">
-                <a :href="commit.commit_url" target="_blank" rel="noopener" class="commit-message">
-                    {{ commit.commit_message }}
-                </a>
-                <p class="commit-meta">
-                    <span class="author">{{ commit.commit_sender_name }}</span>
-                    •
-                    <span class="date">{{
-                        new Date(commit.commit_timestamp).toLocaleString()
-                    }}</span>
-                </p>
+                <img
+                    :src="iconFor(commit.commit_message)"
+                    :alt="`Icon for ${commit.commit_message}`"
+                    class="icon"
+                />
+                <div class="commit-content">
+                    <a
+                        :href="commit.commit_url"
+                        target="_blank"
+                        rel="noopener"
+                        class="commit-message"
+                    >
+                        {{ commit.commit_message }}
+                    </a>
+                    <p class="commit-meta">
+                        <span class="author">{{ commit.commit_sender_name }}</span>
+                        •
+                        <span class="date">{{
+                            new Date(commit.commit_timestamp).toLocaleString()
+                        }}</span>
+                    </p>
+                </div>
             </li>
         </ul>
     </div>
@@ -27,6 +39,15 @@
     }>();
 
     const commits = ref<any[]>([]);
+
+    function iconFor(message: string) {
+        const lower = message.toLowerCase();
+        if (lower.startsWith("fix:")) return "/icons/fix.svg";
+        if (lower.startsWith("feat:") || lower.startsWith("feature:")) return "/icons/feature.svg";
+        if (lower.startsWith("chore:")) return "/icons/chore.svg";
+        return "/icons/neutral.svg";
+    }
+
     onMounted(async () => {
         const { commits: commitsData } = await RepoService.getRepoCommits(props.id);
         commits.value = commitsData.value;
@@ -34,42 +55,65 @@
 </script>
 
 <style scoped>
+    .commits-container {
+        padding: 1rem 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .heading {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #374151; /* gray-700 */
+    }
+
     .commit-list {
         list-style: none;
         padding: 0;
-        margin: 1.5rem 0;
+        margin: 0;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .commit-item {
-        background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        padding: 1rem 1.25rem;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        transition: box-shadow 150ms ease;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        background-color: #f9fafb;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        margin-top: 0.2rem;
+        flex-shrink: 0;
+    }
+
+    .commit-content {
+        flex: 1;
     }
 
     .commit-item:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        background-color: #f9fafb;
     }
 
     .commit-message {
         font-weight: 600;
-        color: #1f2937; /* gray-800 */
+        color: #1e40af; /* blue-800 */
         text-decoration: none;
     }
 
     .commit-message:hover {
-        color: #111827; /* gray-900 */
         text-decoration: underline;
     }
 
     .commit-meta {
         margin-top: 0.25rem;
-        font-size: 0.875rem;
+        font-size: 0.85rem;
         color: #6b7280; /* gray-500 */
     }
 
