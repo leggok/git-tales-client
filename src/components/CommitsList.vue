@@ -88,7 +88,7 @@
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 1rem;
-        color: #374151; /* gray-700 */
+        color: #fff; /* gray-700 */
     }
 
     .commit-list {
@@ -102,27 +102,30 @@
 
     .commit-item {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         gap: 0.75rem;
-        background-color: #f9fafb;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
+        background-color: #ffffff;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
         border-left: 4px solid var(--accent-color);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        transition: box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease;
+    }
+
+    .commit-item:hover {
+        background-color: #f3f4f6;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
     }
 
     .icon {
-        width: 24px;
-        height: 24px;
-        margin-top: 0.2rem;
+        width: 45px;
+        height: 45px;
         flex-shrink: 0;
     }
 
     .commit-content {
         flex: 1;
-    }
-
-    .commit-item:hover {
-        background-color: #f9fafb;
     }
 
     .commit-message {
