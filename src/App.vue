@@ -1,17 +1,14 @@
 <script setup lang="ts">
-    import RegisterForm from "./components/RegisterForm.vue";
+    // No imports needed; components are provided via router
 </script>
 
 <template>
-    <div>
-        <a href="https://vite.dev" target="_blank">
-            <img src="/vite.svg" class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://vuejs.org/" target="_blank">
-            <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-        </a>
-    </div>
-    <RegisterForm />
+    <nav class="nav">
+        <RouterLink to="/">Home</RouterLink> | <RouterLink to="/login">Login</RouterLink> |
+        <RouterLink to="/register">Register</RouterLink>
+    </nav>
+
+    <router-view />
 </template>
 
 <style scoped>
