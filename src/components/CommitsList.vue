@@ -2,7 +2,12 @@
     <div class="commits-container">
         <h2 class="heading">Commits</h2>
         <ul class="commit-list">
-            <li v-for="commit in commits" :key="commit.id" class="commit-item">
+            <li
+                v-for="commit in commits"
+                :key="commit.id"
+                class="commit-item"
+                :style="{ '--accent-color': colorFor(commit.commit_message) }"
+            >
                 <img
                     :src="iconFor(commit.commit_message)"
                     :alt="`Icon for ${commit.commit_message}`"
@@ -53,6 +58,14 @@
         return "/icons/neutral.svg";
     }
 
+    function colorFor(message: string) {
+        const lower = message.toLowerCase();
+        if (lower.startsWith("fix:")) return "#ef4444"; // red-500
+        if (lower.startsWith("feat:") || lower.startsWith("feature:")) return "#3b82f6"; // blue-500
+        if (lower.startsWith("chore:")) return "#8b5cf6"; // purple-500
+        return "#4b5563"; // gray-500
+    }
+
     onMounted(() => loadCommits(props.id));
 
     watch(
@@ -93,6 +106,7 @@
         background-color: #f9fafb;
         padding: 0.5rem;
         border-radius: 0.5rem;
+        border-left: 4px solid var(--accent-color);
     }
 
     .icon {
