@@ -55,6 +55,7 @@
         if (lower.startsWith("fix:")) return "/icons/fix.svg";
         if (lower.startsWith("feat:") || lower.startsWith("feature:")) return "/icons/feature.svg";
         if (lower.startsWith("chore:")) return "/icons/chore.svg";
+        if (lower.startsWith("styles:") || lower.startsWith("style:")) return "/icons/style.svg";
         return "/icons/neutral.svg";
     }
 
