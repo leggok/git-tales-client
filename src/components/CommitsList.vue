@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, onMounted } from "vue";
+    import { ref, onMounted, watch } from "vue";
     import { RepoService } from "../services";
 
     const props = defineProps<{
@@ -39,6 +39,11 @@
     }>();
 
     const commits = ref<any[]>([]);
+
+    async function loadCommits(id: number) {
+        const { commits: commitsData } = await RepoService.getRepoCommits(id);
+        commits.value = commitsData.value;
+    }
 
     function iconFor(message: string) {
         const lower = message.toLowerCase();
@@ -48,10 +53,14 @@
         return "/icons/neutral.svg";
     }
 
-    onMounted(async () => {
-        const { commits: commitsData } = await RepoService.getRepoCommits(props.id);
-        commits.value = commitsData.value;
-    });
+    onMounted(() => loadCommits(props.id));
+
+    watch(
+        () => props.id,
+        (newId) => {
+            if (newId) loadCommits(newId);
+        }
+    );
 </script>
 
 <style scoped>
