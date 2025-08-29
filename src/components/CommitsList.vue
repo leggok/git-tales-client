@@ -1,6 +1,6 @@
 <template>
     <div class="commits-container">
-        <h2 class="heading">Commits</h2>
+        <h2 class="heading">Commits ({{ commits.length }})</h2>
         <ul class="commit-list">
             <li
                 v-for="commit in commits"
