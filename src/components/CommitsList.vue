@@ -23,6 +23,8 @@
                         {{ commit.commit_message }}
                     </a>
                     <p class="commit-meta">
+                        <span class="branch">{{ commit.branch || "main" }}</span>
+                        •
                         <span class="author">{{ commit.commit_sender_name }}</span>
                         •
                         <span class="date">{{
